@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ROAMORA - Explore beautiful destinations and unforgettable travel experiences.">
+<title>ROAMORA | Explore The World</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+  --primary:#087f70;
+  --primary-dark:#056456;
+  --accent:#f5a623;
+  --dark:#12221f;
+  --text:#52635e;
+  --light:#f5f8f6;
+  --white:#fff;
+  --shadow:0 15px 45px rgba(15,45,38,.12);
+  --radius:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:"DM Sans",sans-serif;color:var(--dark);background:white;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+img{width:100%;height:100%;object-fit:cover;display:block}
+.container{width:min(1160px,90%);margin:auto}
+.section{padding:100px 0}
+.section-heading{text-align:center;max-width:650px;margin:0 auto 48px}
+.eyebrow{color:var(--primary);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:3px;margin-bottom:13px}
+.section-heading h2{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,48px);line-height:1.15;margin-bottom:15px}
+.section-heading p{color:var(--text);line-height:1.8}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:50px;padding:14px 25px;font-weight:700;transition:.3s}
+.btn-primary{background:var(--primary);color:white}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-3px);box-shadow:0 10px 25px rgba(8,127,112,.25)}
+.btn-light{background:white;color:var(--dark)}
+.btn-light:hover{transform:translateY(-3px)}
+#preloader{position:fixed;inset:0;z-index:9999;background:#0c2924;display:grid;place-items:center;transition:.6s}
+#preloader.hide{opacity:0;visibility:hidden}
+.loader-content{text-align:center;color:white}
+.loader-logo{font-family:"Playfair Display",serif;font-size:42px;letter-spacing:5px;animation:pulse 1.5s infinite}
+.loader-line{width:180px;height:3px;background:#ffffff33;margin:20px auto;overflow:hidden}
+.loader-line:after{content:"";display:block;height:100%;width:45%;background:var(--accent);animation:loading 1.2s infinite}
+@keyframes loading{from{transform:translateX(-110%)}to{transform:translateX(240%)}}
+@keyframes pulse{50%{opacity:.55}}
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:20px 0;transition:.35s}
+.navbar.scrolled{background:#fffffff5;padding:13px 0;box-shadow:0 5px 25px #0001;backdrop-filter:blur(12px)}
+.nav-content{display:flex;align-items:center;justify-content:space-between}
+.logo{color:white;font-family:"Playfair Display",serif;font-size:29px;font-weight:800;letter-spacing:2px}
+.navbar.scrolled .logo{color:var(--dark)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:25px;list-style:none;color:white;font-size:14px;font-weight:600}
+.navbar.scrolled .nav-links{color:var(--dark)}
+.nav-links a:hover{color:var(--accent)}
+.nav-actions{display:flex;align-items:center;gap:15px}
+.nav-actions .btn{padding:11px 20px;font-size:13px}
+.menu-toggle{display:none;background:none;border:0;color:white;font-size:25px}
+.navbar.scrolled .menu-toggle{color:var(--dark)}
+.wishlist-link{color:white;font-size:19px;position:relative;cursor:pointer}
+.navbar.scrolled .wishlist-link{color:var(--dark)}
+.wishlist-count{position:absolute;top:-10px;right:-12px;background:var(--accent);color:#222;border-radius:50%;font-size:10px;width:18px;height:18px;display:grid;place-items:center;font-weight:800}
+.hero{min-height:760px;height:100vh;max-height:950px;position:relative;display:flex;align-items:center;color:white;overflow:hidden;background:#163c35}
+.hero-image{position:absolute;inset:0;animation:heroZoom 15s ease-in-out infinite alternate}
+.hero-image img{object-position:center 45%}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.12)}}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#051917cc,#05191740 75%),linear-gradient(0deg,#0006,transparent 65%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:750px;padding-top:60px}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;padding:10px 17px;border:1px solid #ffffff73;background:#ffffff1a;border-radius:50px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:25px;backdrop-filter:blur(10px)}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(48px,7vw,82px);line-height:1.08;margin-bottom:22px;animation:slideUp .9s both}
+.hero h1 span{color:#ffc56d;font-style:italic}
+.hero p{max-width:560px;color:#ffffffd9;font-size:17px;line-height:1.8;margin-bottom:32px;animation:slideUp 1.1s both}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:15px;animation:slideUp 1.3s both}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-bottom{position:absolute;z-index:2;bottom:40px;left:5%;right:5%;display:flex;justify-content:space-between;align-items:end}
+.hero-stat{display:flex;gap:30px}
+.hero-stat strong{display:block;font-size:25px}
+.hero-stat small{color:#ffffffb3;font-size:11px}
+.scroll-indicator{font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.search-wrapper{position:relative;z-index:5;margin-top:-48px}
+.search-box{background:white;box-shadow:var(--shadow);border-radius:18px;padding:25px;display:grid;grid-template-columns:repeat(4,1fr) auto;gap:20px;align-items:end}
+.search-field label{display:block;font-size:12px;font-weight:800;margin-bottom:9px}
+.search-field select,.search-field input{width:100%;padding:13px;border:1px solid #e5ebe7;border-radius:9px;outline:none;background:#fafcfb;color:var(--dark);min-width:0}
+.search-field select:focus,.search-field input:focus{border-color:var(--primary)}
+.destination-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.destination-card{height:390px;border-radius:var(--radius);overflow:hidden;position:relative;color:white;box-shadow:0 10px 30px #0001;transition:.4s}
+.destination-card:hover{transform:translateY(-10px);box-shadow:var(--shadow)}
+.destination-card img{transition:transform .7s}
+.destination-card:hover img{transform:scale(1.1)}
+.destination-card:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000c,transparent 75%)}
+.destination-info{position:absolute;z-index:2;bottom:25px;left:25px;right:25px}
+.destination-info h3{font-family:"Playfair Display",serif;font-size:27px;margin-bottom:5px}
+.destination-info p{font-size:13px;color:#ffffffcc}
+.destination-price{position:absolute;top:20px;right:20px;z-index:3;padding:9px 14px;background:white;color:var(--dark);border-radius:50px;font-size:12px;font-weight:800}
+.favorite-btn{position:absolute;top:18px;left:18px;z-index:4;width:40px;height:40px;border:0;border-radius:50%;background:#ffffffed;color:#b8b8b8;font-size:17px}
+.favorite-btn.active{color:#e83d64}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:70px}
+.about-images{position:relative;min-height:500px}
+.about-main{width:78%;height:440px;border-radius:20px;overflow:hidden}
+.about-small{position:absolute;width:48%;height:220px;right:0;bottom:0;border:8px solid white;border-radius:20px;overflow:hidden}
+.about-badge{position:absolute;top:35px;right:0;background:var(--primary);color:white;padding:20px;border-radius:15px;text-align:center;box-shadow:var(--shadow)}
+.about-badge strong{display:block;font-size:27px}
+.about-text h2,.experience-content h2{font-family:"Playfair Display",serif;font-size:clamp(35px,5vw,49px);line-height:1.15;margin-bottom:20px}
+.about-text p,.experience-content>p{color:var(--text);line-height:1.9;margin-bottom:20px}
+.feature-list{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:25px 0 30px}
+.feature{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700}
+.feature i{color:var(--primary);font-size:18px}
+.packages{background:var(--light)}
+.package-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.package-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 8px 30px #0000000d;transition:.4s}
+.package-card:hover{transform:translateY(-9px);box-shadow:var(--shadow)}
+.package-image{height:240px;position:relative;overflow:hidden}
+.package-image img{transition:.6s}
+.package-card:hover .package-image img{transform:scale(1.08)}
+.package-tag{position:absolute;top:18px;left:18px;background:var(--accent);padding:8px 13px;border-radius:50px;font-size:11px;font-weight:800}
+.package-content{padding:25px}
+.package-meta{display:flex;justify-content:space-between;color:var(--text);font-size:12px;margin-bottom:14px}
+.package-content h3{font-family:"Playfair Display",serif;font-size:24px;margin-bottom:12px}
+.package-content p{color:var(--text);font-size:13px;line-height:1.7;margin-bottom:20px}
+.package-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #edf0ed;padding-top:17px}
+.package-price strong{color:var(--primary);font-size:22px}
+.package-price small{display:block;color:var(--text);font-size:11px}
+.experience-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.experience-image{height:520px;border-radius:22px;overflow:hidden}
+.experience-point{display:flex;gap:17px;margin:23px 0}
+.experience-point i{flex-shrink:0;width:45px;height:45px;display:grid;place-items:center;background:#e4f3ee;color:var(--primary);border-radius:12px}
+.experience-point h4{margin-bottom:5px}
+.experience-point p{font-size:13px;color:var(--text);margin:0;line-height:1.7}
+.stats-section{background:#0d3a32;color:white;padding:75px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;gap:25px}
+.stat-item i{color:var(--accent);font-size:28px;margin-bottom:15px}
+.stat-item h3{font-size:39px;margin-bottom:5px}
+.stat-item p{font-size:13px;color:#ffffffb3}
+.testimonials{background:var(--light)}
+.testimonial-card{max-width:750px;margin:auto;background:white;padding:45px;border-radius:20px;text-align:center;box-shadow:var(--shadow)}
+.stars{color:var(--accent);letter-spacing:4px;margin-bottom:20px}
+.testimonial-card blockquote{font-family:"Playfair Display",serif;font-size:clamp(20px,3vw,27px);line-height:1.6;margin-bottom:25px}
+.testimonial-person{font-weight:800}
+.testimonial-person small{display:block;color:var(--text);font-weight:400;margin-top:5px}
+.testimonial-controls{display:flex;justify-content:center;gap:12px;margin-top:25px}
+.testimonial-controls button{width:43px;height:43px;border-radius:50%;border:1px solid #dce5df;background:white;color:var(--primary)}
+.newsletter{background:linear-gradient(120deg,#087f70,#064b43);padding:75px 0;color:white;text-align:center}
+.newsletter h2{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,43px);margin-bottom:13px}
+.newsletter p{color:#ffffffcc;margin-bottom:25px}
+.newsletter-form{display:flex;max-width:500px;margin:auto;background:white;border-radius:50px;padding:6px}
+.newsletter-form input{flex:1;min-width:0;padding:12px 17px;border:0;outline:0;border-radius:50px}
+footer{background:#10231f;color:white;padding:70px 0 25px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:35px;padding-bottom:45px}
+.footer-brand .logo{display:inline-block;margin-bottom:15px}
+.footer-brand p,.footer-col p{color:#a8b7b1;font-size:13px;line-height:1.9}
+.footer-col h4{margin-bottom:20px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:13px;color:#a8b7b1;font-size:13px}
+.footer-col a:hover{color:var(--accent)}
+.socials{display:flex;gap:10px;margin-top:20px}
+.socials a{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#ffffff1a;transition:.3s}
+.socials a:hover{background:var(--primary);transform:translateY(-3px)}
+.copyright{border-top:1px solid #ffffff1f;padding-top:22px;text-align:center;color:#a8b7b1;font-size:12px}
+.modal{position:fixed;inset:0;z-index:3000;display:none;place-items:center;padding:20px;background:#000a;backdrop-filter:blur(6px)}
+.modal.active{display:grid}
+.modal-content{background:white;width:min(500px,100%);max-height:90vh;overflow-y:auto;padding:35px;border-radius:20px;position:relative;animation:modalIn .3s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+.modal-close{position:absolute;top:15px;right:18px;background:none;border:0;font-size:24px}
+.modal-content h2{font-family:"Playfair Display",serif;margin-bottom:8px}
+.modal-content>p{color:var(--text);font-size:13px;margin-bottom:22px}
+.form-group{margin-bottom:15px}
+.form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}
+.form-group input,.form-group select{width:100%;padding:12px;border:1px solid #dfe7e2;border-radius:9px;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--primary)}
+.modal-content .btn{width:100%}
+#toast{position:fixed;z-index:5000;bottom:25px;left:50%;transform:translate(-50%,100px);background:#122b25;color:white;padding:14px 22px;border-radius:50px;font-size:13px;box-shadow:var(--shadow);opacity:0;transition:.4s;max-width:90%;text-align:center}
+#toast.show{transform:translate(-50%,0);opacity:1}
+#backTop{position:fixed;right:25px;bottom:25px;z-index:900;width:45px;height:45px;border:0;border-radius:50%;color:white;background:var(--primary);box-shadow:var(--shadow);opacity:0;visibility:hidden;transition:.3s}
+#backTop.show{opacity:1;visibility:visible}
+.reveal{opacity:0;transform:translateY(35px);transition:.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* Dashboard panels */
+.data-panel{display:none;position:fixed;inset:0;z-index:2500;background:#0009;backdrop-filter:blur(5px);padding:20px;place-items:center}
+.data-panel.active{display:grid}
+.data-panel-box{background:white;width:min(650px,100%);max-height:85vh;overflow:auto;border-radius:20px;padding:28px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.panel-header h2{font-family:"Playfair Display",serif}
+.panel-close{border:0;background:none;font-size:25px}
+.saved-item{border:1px solid #e5ebe7;border-radius:12px;padding:15px;margin:12px 0;display:flex;justify-content:space-between;gap:15px;align-items:center}
+.saved-item p{font-size:13px;color:var(--text);line-height:1.7}
+.delete-btn{border:0;background:#ffeded;color:#cf354d;padding:9px 12px;border-radius:8px}
+.empty-message{text-align:center;color:var(--text);padding:30px}
+.panel-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.panel-actions button{border:0;padding:10px 15px;border-radius:8px;background:#f2f5f3;color:var(--dark)}
+@media(max-width:1000px){
+ .nav-links{gap:15px}
+ .search-box{grid-template-columns:repeat(2,1fr)}
+ .search-box .btn{grid-column:span 2}
+ .destination-grid,.package-grid{grid-template-columns:repeat(2,1fr)}
+ .about-grid,.experience-grid{gap:35px}
+ .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+ .navbar{padding:15px 0}
+ .menu-toggle{display:block}
+ .nav-actions>.btn{display:none}
+ .nav-links{position:absolute;top:100%;left:5%;width:90%;display:none;flex-direction:column;align-items:stretch;gap:0;background:white;color:var(--dark);border-radius:15px;padding:12px 20px;box-shadow:var(--shadow)}
+ .nav-links.open{display:flex}
+ .nav-links li a{display:block;padding:13px 0;border-bottom:1px solid #edf0ed}
+ .wishlist-link{color:white}
+ .navbar.scrolled .wishlist-link{color:var(--dark)}
+ .hero{min-height:700px;height:90vh}
+ .hero-content{padding-top:40px}
+ .hero h1{font-size:clamp(43px,10vw,65px)}
+ .hero-bottom{bottom:25px}
+ .hero-stat{gap:18px}
+ .hero-stat strong{font-size:19px}
+ .scroll-indicator{display:none}
+ .about-grid,.experience-grid{grid-template-columns:1fr}
+ .about-images{min-height:430px}
+ .about-main{height:380px}
+ .experience-image{height:380px}
+ .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+ .section{padding:70px 0}
+ .search-box{grid-template-columns:1fr;padding:20px}
+ .search-box .btn{grid-column:auto}
+ .destination-grid,.package-grid{grid-template-columns:1fr}
+ .destination-card{height:360px}
+ .hero-stat div:nth-child(3){display:none}
+ .hero-tag{font-size:10px}
+ .hero p{font-size:14px}
+ .feature-list{grid-template-columns:1fr}
+ .about-images{min-height:350px}
+ .about-main{height:310px}
+ .about-small{height:155px}
+ .about-badge{padding:12px;top:15px}
+ .about-badge strong{font-size:21px}
+ .testimonial-card{padding:28px 20px}
+ .newsletter-form{border-radius:14px;flex-direction:column;background:transparent;gap:10px}
+ .newsletter-form input{padding:15px}
+ .footer-grid{grid-template-columns:1fr}
+ .modal-content{padding:28px 20px}
+ .saved-item{align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+
+<body>
+
+<div id="preloader">
+  <div class="loader-content">
+    <div class="loader-logo">ROAMORA</div>
+    <div class="loader-line"></div>
+    <p>Preparing your journey...</p>
+  </div>
+</div>
+
+<header class="navbar" id="navbar">
+  <div class="container nav-content">
+    <a href="#home" class="logo">ROAM<span>MORA</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#experiences">Experiences</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" id="myBookingsLink">My Bookings</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="wishlist-link" id="wishlistOpen" aria-label="Open wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="wishlist-count" id="wishlistCount">0</span>
+      </button>
+      <button class="btn btn-primary" onclick="openBooking()">Plan Your Trip <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2000&q=85"
+    data-fallback="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=85"
+    alt="Beautiful mountain lake landscape">
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag"><i class="fa-solid fa-earth-americas"></i> Your next adventure starts here</div>
+      <h1>Explore The World.<br><span>Live The Journey.</span></h1>
+      <p>Discover breathtaking destinations, experience extraordinary cultures and create unforgettable memories with ROAMORA.</p>
+      <div class="hero-buttons">
+        <a href="#destinations" class="btn btn-primary">Explore Destinations <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#about" class="btn btn-light">Discover More <i class="fa-solid fa-play"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-stat">
+      <div><strong>120+</strong><small>Destinations</small></div>
+      <div><strong>15K+</strong><small>Happy Travelers</small></div>
+      <div><strong>10+</strong><small>Years Experience</small></div>
+    </div>
+    <div class="scroll-indicator"><i class="fa-solid fa-arrow-down"></i> Scroll to explore</div>
+  </div>
+</section>
+
+<div class="container search-wrapper">
+  <form class="search-box" id="searchForm">
+    <div class="search-field">
+      <label for="destinationSearch">Where do you want to go?</label>
+      <select id="destinationSearch">
+        <option value="">Choose destination</option>
+        <option>Bali</option><option>Switzerland</option><option>Maldives</option>
+        <option>Japan</option><option>Dubai</option><option>Italy</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label for="travelDate">Travel date</label>
+      <input type="date" id="travelDate">
+    </div>
+    <div class="search-field">
+      <label for="travelers">Travelers</label>
+      <select id="travelers">
+        <option>1 Traveler</option><option selected>2 Travelers</option>
+        <option>3 Travelers</option><option>4 Travelers</option><option>5+ Travelers</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label for="travelType">Travel style</label>
+      <select id="travelType">
+        <option>Adventure</option><option>Luxury</option><option>Relaxation</option>
+        <option>Family</option><option>Culture</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+  </form>
+</div>
+
+<section class="section" id="destinations">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div class="eyebrow">Discover the extraordinary</div>
+      <h2>Popular Destinations</h2>
+      <p>From tropical beaches to beautiful mountain escapes, discover destinations that make every journey unforgettable.</p>
+    </div>
+    <div class="destination-grid">
+      <article class="destination-card reveal" data-destination="Bali">
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=900&q=85" alt="Bali" loading="lazy">
+        <button class="favorite-btn" data-favorite="Bali" aria-label="Save Bali"><i class="fa-solid fa-heart"></i></button>
+        <span class="destination-price">From $599</span>
+        <div class="destination-info"><h3>Bali, Indonesia</h3><p><i class="fa-solid fa-location-dot"></i> Indonesia</p></div>
+      </article>
+      <article class="destination-card reveal" data-destination="Switzerland">
+        <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=85" alt="Switzerland" loading="lazy">
+        <button class="favorite-btn" data-favorite="Switzerland" aria-label="Save Switzerland"><i class="fa-solid fa-heart"></i></button>
+        <span class="destination-price">From $899</span>
+        <div class="destination-info"><h3>Switzerland</h3><p><i class="fa-solid fa-location-dot"></i> Europe</p></div>
+      </article>
+      <article class="destination-card reveal" data-destination="Maldives">
+        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=900&q=85" alt="Maldives" loading="lazy">
+        <button class="favorite-btn" data-favorite="Maldives" aria-label="Save Maldives"><i class="fa-solid fa-heart"></i></button>
+        <span class="destination-price">From $1,099</span>
+        <div class="destination-info"><h3>Maldives</h3><p><i class="fa-solid fa-location-dot"></i> Indian Ocean</p></div>
+      </article>
+      <article class="destination-card reveal" data-destination="Japan">
+        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=900&q=85" alt="Japan" loading="lazy">
+        <button class="favorite-btn" data-favorite="Japan" aria-label="Save Japan"><i class="fa-solid fa-heart"></i></button>
+        <span class="destination-price">From $799</span>
+        <div class="destination-info"><h3>Japan</h3><p><i class="fa-solid fa-location-dot"></i> East Asia</p></div>
+      </article>
+      <article class="destination-card reveal" data-destination="Dubai">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=85" alt="Dubai" loading="lazy">
+        <button class="favorite-btn" data-favorite="Dubai" aria-label="Save Dubai"><i class="fa-solid fa-heart"></i></button>
+        <span class="destination-price">From $499</span>
+        <div class="destination-info"><h3>Dubai</h3><p><i class="fa-solid fa-location-dot"></i> UAE</p></div>
+      </article>
+      <article class="destination-card reveal" data-destination="Italy">
+        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1498307833015-e7b400441eb8?auto=format&fit=crop&w=900&q=85" alt="Italy" loading="lazy">
+        <button class="favorite-btn" data-favorite="Italy" aria-label="Save Italy"><i class="fa-solid fa-heart"></i></button>
+        <span class="destination-price">From $749</span>
+        <div class="destination-info"><h3>Italy</h3><p><i class="fa-solid fa-location-dot"></i> Europe</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-images reveal">
+      <div class="about-main"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85" data-fallback="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85" alt="Travel adventure" loading="lazy"></div>
+      <div class="about-small"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=85" data-fallback="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=700&q=85" alt="Mountains" loading="lazy"></div>
+      <div class="about-badge"><strong>10+</strong><span>Years of<br>Experience</span></div>
+    </div>
+    <div class="about-text reveal">
+      <div class="eyebrow">Who we are</div>
+      <h2>We Make Your Travel Dreams Come True</h2>
+      <p>At ROAMORA, we believe that travel is more than visiting places. It is about discovering new cultures, meeting new people and collecting experiences that stay with you forever.</p>
+      <p>Our team helps you plan meaningful journeys with carefully selected destinations, personalized experiences and dedicated travel support.</p>
+      <div class="feature-list">
+        <div class="feature"><i class="fa-solid fa-circle-check"></i> Expert Travel Guides</div>
+        <div class="feature"><i class="fa-solid fa-circle-check"></i> Best Price Options</div>
+        <div class="feature"><i class="fa-solid fa-circle-check"></i> Custom Packages</div>
+        <div class="feature"><i class="fa-solid fa-circle-check"></i> Travel Assistance</div>
+      </div>
+      <a href="#contact" class="btn btn-primary">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="section packages" id="packages">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div class="eyebrow">Travel your way</div><h2>Our Best Travel Packages</h2>
+      <p>Explore thoughtfully designed travel packages for every kind of traveler.</p>
+    </div>
+    <div class="package-grid">
+      <article class="package-card reveal">
+        <div class="package-image"><img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=85" alt="Maldives resort" loading="lazy"><span class="package-tag">POPULAR</span></div>
+        <div class="package-content">
+          <div class="package-meta"><span><i class="fa-regular fa-clock"></i> 5 Days / 4 Nights</span><span><i class="fa-solid fa-star"></i> 4.9</span></div>
+          <h3>Maldives Escape</h3><p>Relax on beautiful beaches and enjoy crystal-clear waters and unforgettable island experiences.</p>
+          <div class="package-bottom"><div class="package-price"><strong>$1,099</strong><small>Per person</small></div><button class="btn btn-primary book-package" data-destination="Maldives">Book Now</button></div>
+        </div>
+      </article>
+      <article class="package-card reveal">
+        <div class="package-image"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85" alt="Swiss mountains" loading="lazy"><span class="package-tag">ADVENTURE</span></div>
+        <div class="package-content">
+          <div class="package-meta"><span><i class="fa-regular fa-clock"></i> 7 Days / 6 Nights</span><span><i class="fa-solid fa-star"></i> 4.8</span></div>
+          <h3>Swiss Mountain Tour</h3><p>Discover breathtaking alpine landscapes, charming villages and unforgettable mountain views.</p>
+          <div class="package-bottom"><div class="package-price"><strong>$899</strong><small>Per person</small></div><button class="btn btn-primary book-package" data-destination="Switzerland">Book Now</button></div>
+        </div>
+      </article>
+      <article class="package-card reveal">
+        <div class="package-image"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=900&q=85" data-fallback="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=900&q=85" alt="Japan" loading="lazy"><span class="package-tag">CULTURE</span></div>
+        <div class="package-content">
+          <div class="package-meta"><span><i class="fa-regular fa-clock"></i> 6 Days / 5 Nights</span><span><i class="fa-solid fa-star"></i> 5.0</span></div>
+          <h3>Japan Discovery</h3><p>Explore traditional streets, incredible food, beautiful temples and modern Japanese cities.</p>
+          <div class="package-bottom"><div class="package-price"><strong>$799</strong><small>Per person</small></div><button class="btn btn-primary book-package" data-destination="Japan">Book Now</button></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experiences">
+  <div class="container experience-grid">
+    <div class="experience-image reveal"><img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1100&q=85" data-fallback="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1100&q=85" alt="Nature adventure" loading="lazy"></div>
+    <div class="experience-content reveal">
+      <div class="eyebrow">The ROAMORA difference</div>
+      <h2>More Than A Trip. It's An Experience.</h2>
+      <p>Every journey deserves attention to detail. We focus on making your travel experience comfortable, memorable and full of discovery.</p>
+      <div class="experience-point"><i class="fa-solid fa-compass"></i><div><h4>Personalized Adventures</h4><p>Travel experiences designed around your interests and preferences.</p></div></div>
+      <div class="experience-point"><i class="fa-solid fa-hotel"></i><div><h4>Comfortable Stays</h4><p>Explore accommodation options that make your journey more relaxing.</p></div></div>
+      <div class="experience-point"><i class="fa-solid fa-headset"></i><div><h4>Dedicated Support</h4><p>Get helpful assistance while planning and organizing your trip.</p></div></div>
+      <a href="#contact" class="btn btn-primary">Start Your Adventure</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container stats-grid">
+    <div class="stat-item reveal"><i class="fa-solid fa-earth-americas"></i><h3 data-count="120">0</h3><p>Destinations</p></div>
+    <div class="stat-item reveal"><i class="fa-solid fa-users"></i><h3 data-count="15000">0</h3><p>Happy Travelers</p></div>
+    <div class="stat-item reveal"><i class="fa-solid fa-plane"></i><h3 data-count="850">0</h3><p>Trips Organized</p></div>
+    <div class="stat-item reveal"><i class="fa-solid fa-award"></i><h3 data-count="10">0</h3><p>Years Experience</p></div>
+  </div>
+</section>
+
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-heading reveal"><div class="eyebrow">Traveler stories</div><h2>What Our Travelers Say</h2><p>Discover what makes every ROAMORA journey special.</p></div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote id="testimonialText">"ROAMORA made our vacation planning incredibly easy. Everything was organized beautifully, and the experience was even better than we expected."</blockquote>
+      <div class="testimonial-person"><span id="testimonialName">Sarah Johnson</span><small id="testimonialLocation">London, United Kingdom</small></div>
+    </div>
+    <div class="testimonial-controls">
+      <button id="previousTestimonial" aria-label="Previous testimonial"><i class="fa-solid fa-arrow-left"></i></button>
+      <button id="nextTestimonial" aria-label="Next testimonial"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="container reveal">
+    <h2>Get Inspired For Your Next Journey</h2>
+    <p>Subscribe for travel inspiration, destination ideas and special offers.</p>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
+      <button type="submit" class="btn btn-primary">Subscribe <i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">ROAM<span>MORA</span></a>
+        <p>Discover the world with confidence. Let ROAMORA help you create journeys filled with beautiful places and unforgettable memories.</p>
+        <div class="socials">
+          <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li><li><a href="#destinations">Destinations</a></li><li><a href="#packages">Travel Packages</a></li><li><a href="#experiences">Experiences</a></li></ul></div>
+      <div class="footer-col"><h4>Popular Places</h4><ul><li><a href="#destinations">Bali</a></li><li><a href="#destinations">Switzerland</a></li><li><a href="#destinations">Maldives</a></li><li><a href="#destinations">Japan</a></li><li><a href="#destinations">Dubai</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul><li><i class="fa-solid fa-envelope"></i> hello@roamora.com</li><li><i class="fa-solid fa-phone"></i> +1 234 567 890</li><li><i class="fa-solid fa-location-dot"></i> Your next destination</li></ul><p>Replace these sample contact details with your own.</p></div>
+    </div>
+    <div class="copyright">© <span id="currentYear"></span> ROAMORA Travel Agency. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<!-- Booking Modal -->
+<div class="modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal" aria-label="Close">&times;</button>
+    <h2 id="modalTitle">Plan Your Journey</h2>
+    <p>Share your travel details to create your dream trip.</p>
+    <form id="bookingForm">
+      <div class="form-group"><label for="bookingName">Full Name</label><input type="text" id="bookingName" placeholder="Your name" required></div>
+      <div class="form-group"><label for="bookingEmail">Email Address</label><input type="email" id="bookingEmail" placeholder="Your email" required></div>
+      <div class="form-group"><label for="bookingDestination">Destination</label><select id="bookingDestination" required><option value="">Select destination</option><option>Bali</option><option>Switzerland</option><option>Maldives</option><option>Japan</option><option>Dubai</option><option>Italy</option></select></div>
+      <div class="form-group"><label for="bookingDate">Travel Date</label><input type="date" id="bookingDate" required></div>
+      <div class="form-group"><label for="bookingTravelers">Number of Travelers</label><select id="bookingTravelers"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5+</option></select></div>
+      <button type="submit" class="btn btn-primary">Save Booking Request <i class="fa-solid fa-arrow-right"></i></button>
+    </form>
+  </div>
+</div>
+
+<!-- Wishlist Panel -->
+<div class="data-panel" id="wishlistPanel">
+  <div class="data-panel-box">
+    <div class="panel-header"><h2><i class="fa-solid fa-heart"></i> My Wishlist</h2><button class="panel-close" data-close-panel="wishlistPanel">&times;</button></div>
+    <div id="wishlistItems"></div>
+  </div>
+</div>
+
+<!-- Bookings Panel -->
+<div class="data-panel" id="bookingsPanel">
+  <div class="data-panel-box">
+    <div class="panel-header"><h2><i class="fa-solid fa-suitcase"></i> My Bookings</h2><button class="panel-close" data-close-panel="bookingsPanel">&times;</button></div>
+    <div id="bookingItems"></div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<button id="backTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+"use strict";
+
+/* ===================================
+   LOCAL STORAGE DATA MANAGER
+=================================== */
+
+const Storage = {
+  get(key, fallback = []) {
+    try {
+      const value = localStorage.getItem(key);
+      if (value === null) return fallback;
+      const parsed = JSON.parse(value);
+      return parsed ?? fallback;
+    } catch (error) {
+      console.error("Local Storage read error:", error);
+      return fallback;
+    }
+  },
+
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error) {
+      console.error("Local Storage save error:", error);
+      showToast("Unable to save data in this browser.");
+      return false;
+    }
+  },
+
+  remove(key) {
+    localStorage.removeItem(key);
+  }
+};
+
+/* ===================================
+   IMAGE FALLBACK
+=================================== */
+
+document.querySelectorAll("img[data-fallback]").forEach(img => {
+  img.addEventListener("error", function() {
+    if (this.dataset.fallbackUsed === "true") return;
+    this.dataset.fallbackUsed = "true";
+    this.src = this.dataset.fallback;
+  });
+});
+
+/* ===================================
+   PRELOADER
+=================================== */
+
+const preloader = document.getElementById("preloader");
+
+window.addEventListener("load", () => {
+  preloader.classList.add("hide");
+});
+
+setTimeout(() => preloader.classList.add("hide"), 3500);
+
+/* ===================================
+   TOAST MESSAGE
+=================================== */
+
+let toastTimer;
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+/* ===================================
+   NAVBAR
+=================================== */
+
+const navbar = document.getElementById("navbar");
+const navLinks = document.getElementById("navLinks");
+const menuToggle = document.getElementById("menuToggle");
+
+window.addEventListener("scroll", () => {
+  navbar.classList.toggle("scrolled", window.scrollY > 50);
+  document.getElementById("backTop").classList.toggle("show", window.scrollY > 450);
+});
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
+  menuToggle.innerHTML = navLinks.classList.contains("open")
+    ? '<i class="fa-solid fa-xmark"></i>'
+    : '<i class="fa-solid fa-bars"></i>';
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  });
+});
+
+/* ===================================
+   SCROLL REVEAL
+=================================== */
+
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.12});
+
+document.querySelectorAll(".reveal").forEach(element => {
+  revealObserver.observe(element);
+});
+
+/* ===================================
+   WISHLIST LOCAL STORAGE
+=================================== */
+
+let wishlist = Storage.get("roamoraWishlist", []);
+
+if (!Array.isArray(wishlist)) wishlist = [];
+
+function updateWishlistUI() {
+  document.getElementById("wishlistCount").textContent = wishlist.length;
+
+  document.querySelectorAll("[data-favorite]").forEach(button => {
+    const name = button.dataset.favorite;
+    const isSaved = wishlist.includes(name);
+
+    button.classList.toggle("active", isSaved);
+    button.setAttribute("aria-pressed", String(isSaved));
+  });
+
+  renderWishlist();
+}
+
+function toggleWishlist(destination) {
+  if (wishlist.includes(destination)) {
+    wishlist = wishlist.filter(item => item !== destination);
+    showToast(destination + " removed from your wishlist.");
+  } else {
+    wishlist.push(destination);
+    showToast(destination + " saved to your wishlist!");
+  }
+
+  Storage.set("roamoraWishlist", wishlist);
+  updateWishlistUI();
+}
+
+function renderWishlist() {
+  const container = document.getElementById("wishlistItems");
+
+  if (!wishlist.length) {
+    container.innerHTML = '<div class="empty-message"><i class="fa-regular fa-heart"></i><p>Your wishlist is empty.</p><p>Save destinations using the heart button.</p></div>';
+    return;
+  }
+
+  container.innerHTML = wishlist.map(name => `
+    <div class="saved-item">
+      <div><strong>${escapeHTML(name)}</strong><p>Saved destination</p></div>
+      <button class="delete-btn" data-remove-wishlist="${escapeHTML(name)}"><i class="fa-solid fa-trash"></i> Remove</button>
+    </div>
+  `).join("");
+}
+
+document.querySelectorAll("[data-favorite]").forEach(button => {
+  button.addEventListener("click", () => toggleWishlist(button.dataset.favorite));
+});
+
+document.getElementById("wishlistOpen").addEventListener("click", () => {
+  document.getElementById("wishlistPanel").classList.add("active");
+  renderWishlist();
+});
+
+/* ===================================
+   SEARCH HISTORY LOCAL STORAGE
+=================================== */
+
+document.getElementById("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const destination = document.getElementById("destinationSearch").value;
+  const date = document.getElementById("travelDate").value;
+  const travelers = document.getElementById("travelers").value;
+  const style = document.getElementById("travelType").value;
+
+  if (!destination) {
+    showToast("Please choose a destination first.");
+    return;
+  }
+
+  const history = Storage.get("roamoraSearchHistory", []);
+  history.unshift({
+    destination,
+    date,
+    travelers,
+    style,
+    searchedAt: new Date().toISOString()
+  });
+
+  Storage.set("roamoraSearchHistory", history.slice(0, 10));
+
+  const card = document.querySelector(`[data-destination="${destination}"]`);
+
+  if (card) {
+    card.scrollIntoView({behavior:"smooth", block:"center"});
+    card.style.outline = "3px solid #f5a623";
+    setTimeout(() => card.style.outline = "", 2500);
+  }
+
+  showToast("Search saved! Exploring " + destination);
+});
+
+/* ===================================
+   BOOKING MODAL
+=================================== */
+
+const bookingModal = document.getElementById("bookingModal");
+const bookingDestination = document.getElementById("bookingDestination");
+
+function openBooking(destination = "") {
+  bookingModal.classList.add("active");
+  if (destination) bookingDestination.value = destination;
+}
+
+function closeBooking() {
+  bookingModal.classList.remove("active");
+}
+
+document.getElementById("closeModal").addEventListener("click", closeBooking);
+
+bookingModal.addEventListener("click", event => {
+  if (event.target === bookingModal) closeBooking();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeBooking();
+    document.querySelectorAll(".data-panel").forEach(panel => panel.classList.remove("active"));
+  }
+});
+
+document.querySelectorAll(".book-package").forEach(button => {
+  button.addEventListener("click", () => openBooking(button.dataset.destination));
+});
+
+/* ===================================
+   BOOKINGS LOCAL STORAGE
+=================================== */
+
+let bookings = Storage.get("roamoraBookings", []);
+if (!Array.isArray(bookings)) bookings = [];
+
+document.getElementById("bookingForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const booking = {
+    id: Date.now(),
+    name: document.getElementById("bookingName").value.trim(),
+    email: document.getElementById("bookingEmail").value.trim(),
+    destination: bookingDestination.value,
+    date: document.getElementById("bookingDate").value,
+    travelers: document.getElementById("bookingTravelers").value,
+    createdAt: new Date().toISOString()
+  };
+
+  bookings.push(booking);
+
+  if (Storage.set("roamoraBookings", bookings)) {
+    event.target.reset();
+    closeBooking();
+    showToast("Booking request saved successfully!");
+  }
+});
+
+function renderBookings() {
+  const container = document.getElementById("bookingItems");
+
+  if (!bookings.length) {
+    container.innerHTML = '<div class="empty-message"><i class="fa-solid fa-suitcase"></i><p>You have no saved bookings yet.</p></div>';
+    return;
+  }
+
+  container.innerHTML = bookings.map(booking => `
+    <div class="saved-item">
+      <div>
+        <strong>${escapeHTML(booking.destination)}</strong>
+        <p>Name: ${escapeHTML(booking.name)}</p>
+        <p>Email: ${escapeHTML(booking.email)}</p>
+        <p>Date: ${escapeHTML(booking.date)}</p>
+        <p>Travelers: ${escapeHTML(booking.travelers)}</p>
+      </div>
+      <button class="delete-btn" data-delete-booking="${booking.id}"><i class="fa-solid fa-trash"></i></button>
+    </div>
+  `).join("");
+}
+
+function openBookings() {
+  document.getElementById("bookingsPanel").classList.add("active");
+  renderBookings();
+}
+
+document.getElementById("myBookingsLink").addEventListener("click", event => {
+  event.preventDefault();
+  openBookings();
+});
+
+document.querySelectorAll("[data-close-panel]").forEach(button => {
+  button.addEventListener("click", () => {
+    document.getElementById(button.dataset.closePanel).classList.remove("active");
+  });
+});
+
+document.querySelectorAll(".data-panel").forEach(panel => {
+  panel.addEventListener("click", event => {
+    if (event.target === panel) panel.classList.remove("active");
+  });
+});
+
+/* ===================================
+   EVENT DELEGATION FOR DELETE
+=================================== */
+
+document.addEventListener("click", event => {
+  const removeFavorite = event.target.closest("[data-remove-wishlist]");
+
+  if (removeFavorite) {
+    const name = removeFavorite.dataset.removeWishlist;
+    wishlist = wishlist.filter(item => item !== name);
+    Storage.set("roamoraWishlist", wishlist);
+    updateWishlistUI();
+    showToast("Destination removed.");
+  }
+
+  const deleteBooking = event.target.closest("[data-delete-booking]");
+
+  if (deleteBooking) {
+    const id = Number(deleteBooking.dataset.deleteBooking);
+    bookings = bookings.filter(item => item.id !== id);
+    Storage.set("roamoraBookings", bookings);
+    renderBookings();
+    showToast("Booking deleted.");
+  }
+});
+
+/* ===================================
+   NEWSLETTER LOCAL STORAGE
+=================================== */
+
+document.getElementById("newsletterForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const email = document.getElementById("newsletterEmail").value.trim().toLowerCase();
+  let subscribers = Storage.get("roamoraSubscribers", []);
+
+  if (!Array.isArray(subscribers)) subscribers = [];
+
+  if (subscribers.includes(email)) {
+    showToast("This email is already subscribed.");
+    return;
+  }
+
+  subscribers.push(email);
+
+  if (Storage.set("roamoraSubscribers", subscribers)) {
+    event.target.reset();
+    showToast("Thank you for subscribing!");
+  }
+});
+
+/* ===================================
+   TESTIMONIAL SLIDER
+=================================== */
+
+const testimonials = [
+  {
+    text:"ROAMORA made our vacation planning incredibly easy. Everything was organized beautifully, and the experience was even better than we expected.",
+    name:"Sarah Johnson",
+    location:"London, United Kingdom"
+  },
+  {
+    text:"Our trip was full of unforgettable moments. The destination suggestions and travel planning made everything so much easier.",
+    name:"Daniel Smith",
+    location:"Toronto, Canada"
+  },
+  {
+    text:"An amazing experience from beginning to end. We discovered wonderful places and enjoyed every moment of our journey.",
+    name:"Emily Wilson",
+    location:"Sydney, Australia"
+  }
+];
+
+let testimonialIndex = 0;
+
+function showTestimonial() {
+  const item = testimonials[testimonialIndex];
+  document.getElementById("testimonialText").textContent = '"' + item.text + '"';
+  document.getElementById("testimonialName").textContent = item.name;
+  document.getElementById("testimonialLocation").textContent = item.location;
+}
+
+document.getElementById("nextTestimonial").addEventListener("click", () => {
+  testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+  showTestimonial();
+});
+
+document.getElementById("previousTestimonial").addEventListener("click", () => {
+  testimonialIndex = (testimonialIndex - 1 + testimonials.length) % testimonials.length;
+  showTestimonial();
+});
+
+/* ===================================
+   ANIMATED COUNTERS
+=================================== */
+
+const counterObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    const counter = entry.target;
+    const target = Number(counter.dataset.count);
+    const startTime = performance.now();
+    const duration = 1600;
+
+    function updateCounter(time) {
+      const progress = Math.min((time - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = Math.floor(target * eased).toLocaleString();
+
+      if (progress < 1) requestAnimationFrame(updateCounter);
+      else counter.textContent = target.toLocaleString() + "+";
+    }
+
+    requestAnimationFrame(updateCounter);
+    observer.unobserve(counter);
+  });
+}, {threshold:.5});
+
+document.querySelectorAll("[data-count]").forEach(counter => counterObserver.observe(counter));
+
+/* ===================================
+   SAFE HTML TEXT
+=================================== */
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  })[char]);
+}
+
+/* ===================================
+   BACK TO TOP
+=================================== */
+
+document.getElementById("backTop").addEventListener("click", () => {
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+/* ===================================
+   DATE VALIDATION
+=================================== */
+
+const today = new Date();
+const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+  .toISOString().split("T")[0];
+
+document.getElementById("travelDate").min = localToday;
+document.getElementById("bookingDate").min = localToday;
+
+/* ===================================
+   CURRENT YEAR & INITIAL UI
+=================================== */
+
+document.getElementById("currentYear").textContent = new Date().getFullYear();
+updateWishlistUI();
+
+</script>
+</body>
+</html>
